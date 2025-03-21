@@ -1,49 +1,23 @@
-// Top-level build configuration
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0' // Use the appropriate Gradle version
-    }
-}
-
-// Plugin-specific configuration
-apply plugin: 'com.android.library'
-
 android {
-    compileSdkVersion 31 // Use the SDK version your project requires
+    compileSdk 35
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
+        minSdk 21
+        targetSdk 35
 
         externalNativeBuild {
             cmake {
-                arguments "-DANDROID_STL=c++_shared" // Link against the shared C++ library
-                abiFilters "arm64-v8a" // Specify the ABI
+                arguments "-DANDROID_STL=c++_shared"
             }
         }
     }
 
     externalNativeBuild {
         cmake {
-            path "src/main/cpp/CMakeLists.txt" // Path to your CMake configuration
+            path "CMakeLists.txt"
         }
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.4.0' // Add any required dependencies
+    // Add this if not already present
+    namespace 'io.agora.rtc.ng'
 }
